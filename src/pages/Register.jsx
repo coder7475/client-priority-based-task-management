@@ -1,6 +1,11 @@
 import Navbar from "../components/shared/Navbar";
 import { useForm } from "react-hook-form";
-
+import { useContext } from "react";
+import { updateProfile } from "firebase/auth";
+import auth from "./../authentications/firebase/firebase.config.js";
+import { AuthContext } from "../authentications/providers/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 function SubmitButton() {
   return (
     <button
@@ -13,6 +18,8 @@ function SubmitButton() {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { Register, logOut } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -20,7 +27,33 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    const { name, image, email, password } = data;
+    Register(email, password).then(() => {
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: image,
+      })
+        .then(() =>
+          Swal.fire({
+            title: "Success!",
+            text: "You have successfully registered! Please Login!",
+            icon: "success",
+          })
+        )
+        .catch(() =>
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          })
+        );
+      // .then((res) => success("Signed Up successfully! Please Login."));
+      logOut();
+      navigate("/login");
+    });
+  };
 
   // console.log(watch("example")); // watch input value by passing the name of it
 
