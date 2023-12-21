@@ -5,7 +5,9 @@ import { updateProfile } from "firebase/auth";
 import auth from "./../authentications/firebase/firebase.config.js";
 import { AuthContext } from "../authentications/providers/AuthProvider";
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import useAxios from '../hooks/useAxios';
+
 function SubmitButton() {
   return (
     <button
@@ -26,10 +28,21 @@ const Register = () => {
     // watch,
     formState: { errors },
   } = useForm();
+  const axios = useAxios();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+
     const { name, image, email, password } = data;
+    // console.log(profession);
+    axios.post("/add-user", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      }) 
+    // create user using firebase
     Register(email, password).then(() => {
       updateProfile(auth.currentUser, {
         displayName: name,
@@ -92,6 +105,19 @@ const Register = () => {
             Image Link is required
           </span>
         )}
+
+        <input
+          type="text"
+          placeholder="Your Profession"
+          {...register("profession", { required: true })}
+          className="border-2 rounded-lg px-2 text-sm font-light py-2"
+        />
+        {errors.image && (
+          <span className="text-sm text-red-300 font-light">
+            Profession is a must.
+          </span>
+        )}
+
         <input
           type="email"
           placeholder="Your Email"
