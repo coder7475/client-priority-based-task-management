@@ -1,5 +1,9 @@
 import Navbar from "../components/shared/Navbar";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../authentications/providers/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function SubmitButton() {
   return (
@@ -13,14 +17,35 @@ function SubmitButton() {
 }
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     // watch,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    // console.log(data);
+    const { email, password } = data;
+    login(email, password)
+      .then(() => {
+        Swal.fire({
+          title: "Success!",
+          text: "You have successfully Logged in!",
+          icon: "success",
+        });
+        navigate("/dashboard");
+      })
+      .catch(() =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Email/Password!",
+        })
+      );
+  };
 
   // console.log(watch("example")); // watch input value by passing the name of it
 
@@ -32,9 +57,7 @@ const Login = () => {
         className="flex flex-col justify-center items-center space-y-4  overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 max-w-lg pt-5 px-5 mx-auto mt-20"
       >
         <header className="mb-4 text-center">
-          <h3 className="text-xl font-medium text-slate-700">
-            Login Form
-          </h3>
+          <h3 className="text-xl font-medium text-slate-700">Login Form</h3>
         </header>
         {/* register your input into the hook by invoking the "register" function */}
         <input
