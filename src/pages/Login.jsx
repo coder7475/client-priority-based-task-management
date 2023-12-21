@@ -7,12 +7,12 @@ function SubmitButton() {
       type="submit"
       className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-sky-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none"
     >
-      <span>Register</span>
+      <span>Login</span>
     </button>
   );
 }
 
-const Register = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -29,36 +29,14 @@ const Register = () => {
       <Navbar />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center space-y-4  overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 max-w-lg p-5 mx-auto mt-20"
+        className="flex flex-col justify-center items-center space-y-4  overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 max-w-lg pt-5 px-5 mx-auto mt-20"
       >
         <header className="mb-4 text-center">
           <h3 className="text-xl font-medium text-slate-700">
-            Registration Form
+            Login Form
           </h3>
         </header>
         {/* register your input into the hook by invoking the "register" function */}
-        <input
-          type="text"
-          placeholder="Your Name"
-          {...register("name", { required: true })}
-          className="border-2 rounded-lg px-2 text-sm font-light py-2"
-        />
-        {errors.name && (
-          <span className="text-sm text-red-300 font-light">
-            Name is required
-          </span>
-        )}
-        <input
-          type="text"
-          placeholder="Your Image Link"
-          {...register("image", { required: true })}
-          className="border-2 rounded-lg px-2 text-sm font-light py-2"
-        />
-        {errors.image && (
-          <span className="text-sm text-red-300 font-light">
-            Image Link is required
-          </span>
-        )}
         <input
           type="email"
           placeholder="Your Email"
@@ -90,4 +68,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
