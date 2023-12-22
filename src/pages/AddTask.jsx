@@ -1,6 +1,6 @@
 
 import { useForm } from 'react-hook-form';
-// import useAxios from '../hooks/useAxios';
+import useAxios from '../hooks/useAxios';
 
 function SubmitButton() {
   return (
@@ -20,23 +20,21 @@ const AddTask = () => {
     // watch,
     formState: { errors },
   } = useForm();
-  // const axios = useAxios();
+  const axios = useAxios();
 
   const onSubmit = (data) => {
     console.log(data);
 
-    // // console.log(profession);
-    // axios.post("/add-task", data)
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   }) 
+    axios.post("/add-task", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      }) 
 
   };
 
-  // console.log(watch("example")); // watch input value by passing the name of it
 
   return (
     <main className="min-h-screen">
