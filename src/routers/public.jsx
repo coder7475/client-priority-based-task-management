@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import DashboardLayout from '../layouts/DashboardLayout';
 import DashHome from '../pages/DashHome';
 import AddTask from '../pages/AddTask';
+import EditTask from '../pages/EditTask';
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "editTask",
-        element: <h4>Edit Task</h4>
+        element: <EditTask/>
       },
       {
         path: "deleteTask",
