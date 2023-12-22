@@ -49,7 +49,7 @@ h4.05c2.38-2.19 3.75-5.42 3.75-9.12z"
 }
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login, googleSignIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -78,6 +78,26 @@ const Login = () => {
         })
       );
   };
+
+  const handleGoogleLogIn = () => {
+    // console.log("clicked");
+    googleSignIn()
+    .then(() => {
+      Swal.fire({
+        title: "Success!",
+        text: "You have successfully Logged in!",
+        icon: "success",
+      });
+      navigate("/dashboard");
+    })
+    .catch(() =>
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid Email/Password!",
+      })
+    );
+  }
 
   // console.log(watch("example")); // watch input value by passing the name of it
 
@@ -120,11 +140,13 @@ const Login = () => {
         </div>
       </form>
       <h2 className="text-center mt-3">OR</h2>
-      <div className="flex bg-white w-64 mx-auto rounded mt-3 justify-center items-center gap-2 border-2 bg-base-100 shadow-xl" >
+      <div className="flex bg-white w-64 mx-auto rounded mt-3 justify-center items-center gap-2 border-2 bg-base-100 shadow-xl" 
+
+      >
         <GoogleIcon></GoogleIcon>
         <button
           className="rounded-xl text-xl font-semibold"
-          // onClick={googleSignIn}
+          onClick={handleGoogleLogIn}
         >
           Login with Google
         </button>
