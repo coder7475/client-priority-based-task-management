@@ -4,7 +4,11 @@ import { AuthContext } from "../authentications/providers/AuthProvider";
 
 const DashboardLayout = () => {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut();
+  }
 
   return (
     <div className="flex ">
@@ -123,6 +127,7 @@ const DashboardLayout = () => {
           <footer className="border-t border-slate-200 p-3">
             <button
               className="flex items-center justify-center gap-3 rounded p-3 text-slate-900 transition-colors hover:text-sky-500 mx-auto"
+              onClick={handleLogOut}
             >
               <div className="flex items-center self-center ">
                 <svg
