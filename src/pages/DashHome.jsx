@@ -12,7 +12,7 @@ function AddTaskBtn() {
   return (
     <div className="text-center">
       <NavLink to="/dashboard/addTask">
-        <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+        <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-blue-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
           <span>Add New Task</span>
         </button>
       </NavLink>
@@ -26,6 +26,18 @@ function EditTaskBtn() {
       <NavLink to="/dashboard/editTask">
         <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-sky-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
           <span>Edit Task</span>
+        </button>
+      </NavLink>
+    </div>
+  );
+}
+
+function DeleteTaskBtn() {
+  return (
+    <div className="text-center">
+      <NavLink to="/dashboard/deleteTask">
+        <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+          <span>Delete Task</span>
         </button>
       </NavLink>
     </div>
@@ -95,7 +107,8 @@ const DashHome = () => {
     <main>
       <div className="flex flex-col md:flex-row gap-2 justify-center items-center">
         <EditTaskBtn />
-        <AddTaskBtn></AddTaskBtn>
+        <AddTaskBtn/>
+        <DeleteTaskBtn/>
       </div>
       <div className="App mt-5 flex flex-col gap-2 md:flex-row justify-center items-center">
         <DragDropContext onDragEnd={handleDragEnd}>
