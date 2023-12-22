@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../authentications/providers/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { FacebookAuthProvider } from "firebase/auth";
 
 function SubmitButton() {
   return (
@@ -63,7 +64,7 @@ function FbIcon() {
 }
 
 const Login = () => {
-  const { login, googleSignIn } = useContext(AuthContext);
+  const { login, googleSignIn, facebookSignIn, setFbpic } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -112,6 +113,28 @@ const Login = () => {
         })
       );
   };
+
+  const handleFacebookLogIn = () => {
+    // console.log("clicked");
+    facebookSignIn()
+      .then((res) => {
+        console.log(res);
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(res);
+        const accessToken = credential.accessToken;
+        fetch(
+          `https://graph.facebook.com/${res.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
+        )
+          .then((response) => response.blob())
+          .then((blob) => {
+            setFbpic(URL.createObjectURL(blob));
+          })
+          .catch((err) => console.log(err));
+
+        navigate("/");
+      })
+      .catch((err) => alert(err));
+  }
 
   // console.log(watch("example")); // watch input value by passing the name of it
 
@@ -168,7 +191,7 @@ const Login = () => {
         <FbIcon></FbIcon>
         <button
           className="rounded-xl text-xl font-semibold"
-          onClick={handleGoogleLogIn}
+          onClick={handleFacebookLogIn}
         >
           Login with Facebook
         </button>

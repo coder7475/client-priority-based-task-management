@@ -18,6 +18,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fbpic, setFbpic] = useState(null);
   // const mainAxios = useAxios();
 
   useEffect(() => {
@@ -65,7 +66,9 @@ const AuthProvider = ({ children }) => {
     Register,
     login,
     googleSignIn,
-    facebookSignIn
+    facebookSignIn,
+    fbpic,
+    setFbpic
   };
 
   return (
