@@ -1,9 +1,9 @@
-
+import{ useParams} from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import useAxios from '../hooks/useAxios';
-import Swal from 'sweetalert2';
-import { useContext } from 'react';
-import { AuthContext } from '../authentications/providers/AuthProvider';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function SubmitButton() {
   return (
@@ -16,8 +16,19 @@ function SubmitButton() {
   );
 }
 
-const AddTask = () => {
-  const { user } = useContext(AuthContext);
+const UpdatePage = () => {
+  const { id }= useParams();
+  // console.log(id);
+  // const { user } = useContext(AuthContext);
+  const [task, setTask] = useState({});
+  const axios = useAxios();
+
+  useEffect(() => {
+    axios.get(`/findTask/${id}`)
+      .then(res => setTask(res?.data[0]))
+  }, [axios, id])
+  
+  console.log(task);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -36,31 +47,11 @@ const AddTask = () => {
     // watch,
     formState: { errors },
   } = useForm();
-  const axios = useAxios();
 
   const onSubmit = (data) => {
-    // console.log(data);
-    const payload = {
-      ...data,
-      email: user?.email
-    }
+    console.log(data);
+   
     // console.log(payload);
-    axios.post("/add-task", payload)
-      .then(() => {
-        // console.log(res);
-        
-        Toast.fire({
-          icon: "success",
-          title: "Task Added"
-        });
-      })
-      .catch(() => {
-        // console.log(err);
-        Toast.fire({
-          icon: "error",
-          title: "Failed to add Task"
-        });
-      }) 
 
   };
 
@@ -73,13 +64,13 @@ const AddTask = () => {
       >
         <header className="mb-4 text-center">
           <h3 className="text-xl font-medium text-slate-700">
-            Create Task
+            Edit Task
           </h3>
         </header>
         {/* register your input into the hook by invoking the "register" function */}
         <input
           type="text"
-          placeholder="Task Title"
+          defaultValue={'f'}
           {...register("title", { required: true })}
           className="border-2 w-full rounded-lg px-2 text-sm font-light py-2"
         />
@@ -140,4 +131,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default UpdatePage;

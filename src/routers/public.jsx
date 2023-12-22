@@ -9,6 +9,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import DashHome from '../pages/DashHome';
 import AddTask from '../pages/AddTask';
 import EditTask from '../pages/EditTask';
+import UpdatePage from '../pages/UpdatePage';
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/editTask/:id",
-        element: <h3>Update Page</h3>
+        element: <UpdatePage/>
       }
     ]
   }
