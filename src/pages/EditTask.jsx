@@ -14,6 +14,9 @@ const EditTask = () => {
   }, [axios, user?.email]);
 
   // console.log(tasks);
+  const handleDelete = (id) => {
+    console.log(id);
+  }
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -25,8 +28,8 @@ const EditTask = () => {
             <div key={task?._id}>
               <div className="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200">
                 <div className="p-6">
-                  <header className="mb-4">
-                    <h3 className="text-xl font-medium text-slate-700">
+                  <header className="mb-4 h-24">
+                    <h3 className="md:text-xl font-medium text-slate-700">
                       {task?.title}
                     </h3>
                     <div>
@@ -36,7 +39,7 @@ const EditTask = () => {
                   </header>
                   <p className="h-24">{task?.description.slice(0, 15)}</p>
                   <div>
-                    <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+                    <button onClick={() => handleDelete(task?._id)} className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 p-2 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
                       <span>Delete Task</span>
                     </button>
                   </div>
