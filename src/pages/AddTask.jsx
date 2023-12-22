@@ -1,6 +1,7 @@
 
 import { useForm } from 'react-hook-form';
 import useAxios from '../hooks/useAxios';
+import Swal from 'sweetalert2';
 
 function SubmitButton() {
   return (
@@ -13,7 +14,20 @@ function SubmitButton() {
   );
 }
 
+
+
 const AddTask = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
   const {
     register,
     handleSubmit,
@@ -23,14 +37,23 @@ const AddTask = () => {
   const axios = useAxios();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
 
     axios.post("/add-task", data)
-      .then(res => {
-        console.log(res);
+      .then(() => {
+        // console.log(res);
+        
+        Toast.fire({
+          icon: "success",
+          title: "Task Added"
+        });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        // console.log(err);
+        Toast.fire({
+          icon: "error",
+          title: "Failed to add Task"
+        });
       }) 
 
   };
