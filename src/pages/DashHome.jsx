@@ -10,7 +10,7 @@ import "./DashHome.css";
 
 function AddTaskBtn() {
   return (
-    <div>
+    <div className="text-center">
       <NavLink to="/dashboard/addTask">
         <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
           <span>Add New Task</span>
@@ -82,7 +82,7 @@ const DashHome = () => {
   return (
     <main>
       <AddTaskBtn></AddTaskBtn>
-      <div className="App mt-5 justify-center">
+      <div className="App mt-5 flex flex-col gap-2 md:flex-row justify-center items-center">
         <DragDropContext onDragEnd={handleDragEnd}>
           {_.map(state, (data, key) => {
             return (
