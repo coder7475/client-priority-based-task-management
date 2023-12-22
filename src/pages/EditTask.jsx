@@ -1,7 +1,24 @@
+import PropTypes from "prop-types"
 import { useEffect, useContext, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "../authentications/providers/AuthProvider";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+
+function DeleteBtn(props) {
+  return (
+    <button
+      onClick={() => props.handleDelete(props.task?._id)}
+      className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 p-2 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none"
+    >
+      <span>Delete Task</span>
+    </button>
+  );
+}
+
+DeleteBtn.propTypes = {
+  handleDelete: PropTypes.func,
+  task: PropTypes.any
+}
 
 const EditTask = () => {
   const axios = useAxios();
@@ -23,31 +40,32 @@ const EditTask = () => {
     didOpen: (toast) => {
       toast.onmouseenter = Swal.stopTimer;
       toast.onmouseleave = Swal.resumeTimer;
-    }
+    },
   });
   // console.log(tasks);
   const handleDelete = (id) => {
-    axios.delete(`/delete-task/${id}`)
+    axios
+      .delete(`/delete-task/${id}`)
       .then((res) => {
         console.log(res);
         Toast.fire({
           icon: "success",
-          title: "Task Deleted"
+          title: "Task Deleted",
         });
       })
       .catch((err) => {
         console.log(err);
         Toast.fire({
           icon: "error",
-          title: "Failed Delete Task"
+          title: "Failed Delete Task",
         });
-      }) 
+      });
 
     // refetch data
     axios.get(`/userTasks/${user?.email}`).then((res) => {
       setTasks(res?.data);
     });
-  }
+  };
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -70,9 +88,10 @@ const EditTask = () => {
                   </header>
                   <p className="h-24">{task?.description.slice(0, 15)}</p>
                   <div>
-                    <button onClick={() => handleDelete(task?._id)} className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 p-2 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
-                      <span>Delete Task</span>
-                    </button>
+                    <DeleteBtn
+                      handleDelete={handleDelete}
+                      task={task}
+                    ></DeleteBtn>
                   </div>
                 </div>
               </div>
