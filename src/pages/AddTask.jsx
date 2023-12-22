@@ -2,6 +2,8 @@
 import { useForm } from 'react-hook-form';
 import useAxios from '../hooks/useAxios';
 import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../authentications/providers/AuthProvider';
 
 function SubmitButton() {
   return (
@@ -17,6 +19,7 @@ function SubmitButton() {
 
 
 const AddTask = () => {
+  const { user } = useContext(AuthContext);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -38,8 +41,12 @@ const AddTask = () => {
 
   const onSubmit = (data) => {
     // console.log(data);
-
-    axios.post("/add-task", data)
+    const payload = {
+      ...data,
+      email: user?.email
+    }
+    // console.log(payload);
+    axios.post("/add-task", payload)
       .then(() => {
         // console.log(res);
         
