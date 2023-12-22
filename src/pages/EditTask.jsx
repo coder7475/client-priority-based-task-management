@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "../authentications/providers/AuthProvider";
+import Swal from 'sweetalert2';
 
 const EditTask = () => {
   const axios = useAxios();
@@ -13,9 +14,34 @@ const EditTask = () => {
     });
   }, [axios, user?.email]);
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
   // console.log(tasks);
   const handleDelete = (id) => {
-    console.log(id);
+    axios.delete(`/delete-task/${id}`)
+      .then((res) => {
+        console.log(res);
+        Toast.fire({
+          icon: "success",
+          title: "Task Deleted"
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        Toast.fire({
+          icon: "error",
+          title: "Failed Delete Task"
+        });
+      }) 
   }
 
   return (

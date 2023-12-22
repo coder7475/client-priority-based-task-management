@@ -31,6 +31,7 @@ const AddTask = () => {
       toast.onmouseleave = Swal.resumeTimer;
     }
   });
+  
   const {
     register,
     handleSubmit,
