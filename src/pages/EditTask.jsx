@@ -42,6 +42,11 @@ const EditTask = () => {
           title: "Failed Delete Task"
         });
       }) 
+
+    // refetch data
+    axios.get(`/userTasks/${user?.email}`).then((res) => {
+      setTasks(res?.data);
+    });
   }
 
   return (
