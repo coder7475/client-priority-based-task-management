@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { AuthContext } from "../authentications/providers/AuthProvider";
 
@@ -6,12 +6,17 @@ const DashboardLayout = () => {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
 
+  useEffect(() => {
+    document.title = 'Dashboard';
+  }, [])
+
   const handleLogOut = () => {
     logOut();
   }
 
   return (
-    <div className="flex ">
+    <div className="flex">
+
       <div className="w-1/4">
         <button
           title="Side navigation"
@@ -162,7 +167,7 @@ const DashboardLayout = () => {
           onClick={() => setIsSideNavOpen(false)}
         ></div>
       </div>
-      <div className="md:ml-24 mr-5 mt-5">
+      <div className="md:ml-24 mr-5 mt-5 w-full">
         <Outlet />
       </div>
     </div>

@@ -113,7 +113,7 @@ const DashHome = () => {
         <DragDropContext onDragEnd={handleDragEnd}>
           {_.map(state, (data, key) => {
             return (
-              <div key={key} className="column border-2 p-2 rounded">
+              <div key={key} className="w-48 md:w-32 lg:w-fit lg: border-2 p-2 rounded">
                 <h3 className="font-bold text-center border-b-2">
                   {data?.title}{" "}
                 </h3>

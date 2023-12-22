@@ -11,7 +11,7 @@ function SubmitButton() {
       type="submit"
       className="inline-flex h-7 md:h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-sky-500 px-2 md:px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none"
     >
-      <span>Add Task</span>
+      <span>Update</span>
     </button>
   );
 }
@@ -28,7 +28,7 @@ const UpdatePage = () => {
       .then(res => setTask(res?.data[0]))
   }, [axios, id])
   
-  console.log(task);
+  // console.log(task);
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -49,10 +49,23 @@ const UpdatePage = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-   
-    // console.log(payload);
-
+    // console.log(data);
+    axios.patch(`/update-task/${id}`, data)
+    .then(() => {
+      // console.log(res);
+      
+      Toast.fire({
+        icon: "success",
+        title: "Task Updated"
+      });
+    })
+    .catch(() => {
+      // console.log(err);
+      Toast.fire({
+        icon: "error",
+        title: "Failed to update"
+      });
+    }) 
   };
 
 
@@ -64,24 +77,20 @@ const UpdatePage = () => {
       >
         <header className="mb-4 text-center">
           <h3 className="text-xl font-medium text-slate-700">
-            Edit Task
+            Update Task
           </h3>
         </header>
         {/* register your input into the hook by invoking the "register" function */}
         <input
           type="text"
-          defaultValue={'f'}
+          defaultValue={task?.title}
           {...register("title", { required: true })}
           className="border-2 w-full rounded-lg px-2 text-sm font-light py-2"
         />
-        {errors.title && (
-          <span className="text-sm text-red-300 font-light">
-            Title is required
-          </span>
-        )}
+        
         <select {...register("priority")}
           className="border-2 rounded-lg w-full px-2 text-sm font-light py-2"
-
+          defaultValue={task?.priority}
         >
           <option value="" disabled>Select Priority</option>
           <option value="high">High</option>
@@ -96,31 +105,23 @@ const UpdatePage = () => {
 
         <input
           type="date"
-          placeholder="Deadline"
+          defaultValue={task?.deadline}
           {...register("deadline", { required: true })}
           className="border-2 w-full rounded-lg px-2 text-sm font-light py-2"
         />
-        {errors.deadline && (
-          <span className="text-sm text-red-300 font-light">
-            This field is required
-          </span>
-        )}
+        
         <textarea 
           name="description" 
           id="description" 
           cols="30" 
           rows="5"
-          placeholder="Description"
+          defaultValue={task?.description}
           {...register("description", { required: true })}
           className="border-2 w-full rounded-lg px-2 text-sm font-light py-2"
-        
+          
         ></textarea>
        
-        {errors.description && (
-          <span className="text-sm text-red-300 font-light">
-            Description is required
-          </span>
-        )}
+        
        
 
         <div className="flex justify-end pb-6 ">
