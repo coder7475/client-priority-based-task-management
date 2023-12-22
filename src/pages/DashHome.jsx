@@ -102,7 +102,7 @@ const DashHome = () => {
   };
 
   return (
-    <main>
+    <main className="lg:ml-10">
       
       <div className="flex flex-col md:flex-row gap-2 justify-start  items-center">
         <EditTaskBtn />
