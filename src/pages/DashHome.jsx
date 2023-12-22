@@ -70,7 +70,7 @@ const DashHome = () => {
     });
   }, [axios, user?.email]);
 
-  console.log(tasks);
+  // console.log(tasks);
 
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
@@ -105,12 +105,13 @@ const DashHome = () => {
 
   return (
     <main>
-      <div className="flex flex-col md:flex-row gap-2 justify-center items-center">
+      
+      <div className="flex flex-col md:flex-row gap-2 justify-start  items-center">
         <EditTaskBtn />
         <AddTaskBtn/>
         <DeleteTaskBtn/>
       </div>
-      <div className="App mt-5 flex flex-col gap-2 md:flex-row justify-center items-center">
+      <div className="App mt-5 flex flex-col gap-2 md:flex-row w-full mb-10 justify-start items-center">
         <DragDropContext onDragEnd={handleDragEnd}>
           {_.map(state, (data, key) => {
             return (
@@ -135,7 +136,7 @@ const DashHome = () => {
                               draggableId={el._id}
                             >
                               {(provided, snapshot) => {
-                                console.log(snapshot);
+                                // console.log(snapshot);
                                 return (
                                   <div
                                     className={`item ${
@@ -147,9 +148,9 @@ const DashHome = () => {
                                   >
                                     <h3>{el?.title}</h3>
                                     <hr />
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between ">
                                       <h3>{el?.priority}</h3>
-                                      <h3>{el?.deadline}</h3>
+                                      <h3 className="hidden lg:block">{el?.deadline}</h3>
                                     </div>
                                   </div>
                                 );
