@@ -162,7 +162,7 @@ const DashboardLayout = () => {
           onClick={() => setIsSideNavOpen(false)}
         ></div>
       </div>
-      <div className="ml-24 mr-5 mt-5">
+      <div className="ml-24 mr-5 mt-5 w-3/4">
         <Outlet />
       </div>
     </div>
