@@ -1,5 +1,24 @@
 import { NavLink } from "react-router-dom";
+import useAxios from '../hooks/useAxios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../authentications/providers/AuthProvider';
+
 const DashHome = () => {
+  const axios = useAxios();
+  const [tasks, setTasks] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    axios.get(`/userTasks/${user?.email}`)
+         .then(res => {
+          setTasks(res?.data);
+         })
+  }, [axios, user?.email])
+  
+  console.log(tasks);
+
   return (
     <main className="">
       <div >
