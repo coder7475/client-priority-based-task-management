@@ -104,7 +104,7 @@ const DashboardLayout = () => {
                     }
                   >
                     <div className="flex w-full flex-1 flex-col items-center justify-center gap-0 overflow-hidden truncate ">
-                      Edit Task
+                      Edit Tasks
                     </div>
                   </NavLink>
                 </li>
@@ -115,9 +115,9 @@ const DashboardLayout = () => {
                       isActive ? "font-bold text-sky-500" : isPending ? "font-lg" : ""
                     }
                   >
-                    <div className="flex w-full flex-1 flex-col items-center justify-center gap-0 overflow-hidden truncate ">
+                    {/* <div className="flex w-full flex-1 flex-col items-center justify-center gap-0 overflow-hidden truncate ">
                       Delete Task
-                    </div>
+                    </div> */}
                   </NavLink>
                 </li>
               </ul>

@@ -35,7 +35,7 @@ function EditTaskBtn() {
 function DeleteTaskBtn() {
   return (
     <div className="text-center">
-      <NavLink to="/dashboard/deleteTask">
+      <NavLink to="/dashboard/editTask">
         <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-red-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
           <span>Delete Task</span>
         </button>
