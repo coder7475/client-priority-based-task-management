@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../authentications/providers/AuthProvider";
 import { DragDropContext } from "react-beautiful-dnd";
+import _ from "lodash";
 
 function AddTaskBtn() {
   return (
@@ -22,32 +23,66 @@ const DashHome = () => {
   const axios = useAxios();
   const [tasks, setTasks] = useState([]);
   const { user } = useContext(AuthContext);
-  const [state, setState] = useState({
-    todo: {
-      title: "Todo",
-      items: tasks,
-    },
-    "in-progress": {
-      title: "Ongoing",
-      items: [],
-    },
-    done: {
-      title: "Completed",
-      items: [],
-    },
-  });
+  const [state, setState] = useState({});
 
   useEffect(() => {
     axios.get(`/userTasks/${user?.email}`).then((res) => {
       setTasks(res?.data);
+      setState({
+        todo: {
+          title: "Todo",
+          items: res?.data,
+        },
+        "in-progress": {
+          title: "Ongoing",
+          items: [],
+        },
+        done: {
+          title: "Completed",
+          items: [],
+        },
+      });
     });
   }, [axios, user?.email]);
 
   console.log(tasks);
 
+  const handleDragEnd = ({destination, source}) => {
+    if (!destination) {
+      return
+    }
+
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
+
+    // Creating a copy of item before removing it from state
+    const itemCopy = {...state[source.droppableId].items[source.index]}
+
+    setState(prev => {
+      prev = {...prev}
+      // Remove from previous items array
+      prev[source.droppableId].items.splice(source.index, 1)
+
+
+      // Adding to new items array location
+      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+
+      return prev
+    })
+  }
+
   return (
     <main className="">
       <AddTaskBtn></AddTaskBtn>
+      <DragDropContext 
+        onDragEnd={handleDragEnd}
+      >
+        {_.map(state, (data, key) => {
+          console.log(data, key);
+        })}
+      </DragDropContext>
+
     </main>
   );
 };
