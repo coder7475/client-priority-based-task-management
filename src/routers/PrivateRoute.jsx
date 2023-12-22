@@ -5,7 +5,8 @@ import { Navigate, useLocation } from "react-router-dom";
 
 function Spinners() {
   return (
-    <svg
+    <div className="flex justify-center items-center min-h-screen"> 
+      <svg
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +30,7 @@ function Spinners() {
         strokeWidth="4"
       />
     </svg>
+    </div>
   );
 }
 

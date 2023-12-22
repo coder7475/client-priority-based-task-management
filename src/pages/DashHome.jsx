@@ -46,13 +46,11 @@ function DeleteTaskBtn() {
 
 const DashHome = () => {
   const axios = useAxios();
-  const [tasks, setTasks] = useState([]);
   const { user } = useContext(AuthContext);
   const [state, setState] = useState({});
 
   useEffect(() => {
     axios.get(`/userTasks/${user?.email}`).then((res) => {
-      setTasks(res?.data);
       setState({
         todo: {
           title: "Todo",
