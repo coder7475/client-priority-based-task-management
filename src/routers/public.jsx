@@ -48,8 +48,8 @@ export const router = createBrowserRouter([
         element: <EditTask/>
       },
       {
-        path: "deleteTask",
-        element: <h3>Delete Task</h3>
+        path: "/dashboard/editTask/:id",
+        element: <h3>Update Page</h3>
       }
     ]
   }

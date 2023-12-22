@@ -1,8 +1,9 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { useEffect, useContext, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "../authentications/providers/AuthProvider";
 import Swal from "sweetalert2";
+import { NavLink } from "react-router-dom";
 
 function DeleteBtn(props) {
   return (
@@ -17,7 +18,15 @@ function DeleteBtn(props) {
 
 DeleteBtn.propTypes = {
   handleDelete: PropTypes.func,
-  task: PropTypes.any
+  task: PropTypes.any,
+};
+
+function UpdateBtn() {
+  return (
+    <button className="inline-flex h-10  items-center justify-center gap-2 whitespace-nowrap rounded bg-sky-500 p-2 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-sky-600 focus:bg-sky-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+      <span>Update Task</span>
+    </button>
+  );
 }
 
 const EditTask = () => {
@@ -87,11 +96,14 @@ const EditTask = () => {
                     </div>
                   </header>
                   <p className="h-24">{task?.description.slice(0, 15)}</p>
-                  <div>
+                  <div className="flex flex-col lg:flex-row gap-2">
                     <DeleteBtn
                       handleDelete={handleDelete}
                       task={task}
                     ></DeleteBtn>
+                    <NavLink to={`/dashboard/editTask/${task?._id}`}>
+                      <UpdateBtn></UpdateBtn>
+                    </NavLink>
                   </div>
                 </div>
               </div>
