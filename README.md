@@ -1,8 +1,25 @@
-# React + Vite
+# Project Title
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Priority Based Task Management - TaskManager
 
-Currently, two official plugins are available:
+# Live Link
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://priority-task-management.web.app/
+
+# Backend
+## Code: 
+## https://github.com/coder7475/priority-based-task-management
+# Features
+
+- Drag and Drop Functionaliy for task list for to-do, ongoing and completed list
+- Add New Task
+- Update Existing Task
+- Delete Existing Task
+- Registration and Login using email and password
+- Signin using Google 
+- Show SweetAlert for successful or unsuccesful registration
+- A Error Page is shown for wrong route
+
+## Authors
+
+- [@coder7475](https://github.com/coder7475)
