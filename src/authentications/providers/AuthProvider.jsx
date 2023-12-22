@@ -9,6 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup
 } from "firebase/auth";
 
@@ -52,13 +53,19 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);           
   };
 
+  const fbProvider = new FacebookAuthProvider();
+  const facebookSignIn = () => {
+    return signInWithPopup(auth, fbProvider);
+  };
+
   const authInfo = {
     user,
     loading,
     logOut,
     Register,
     login,
-    googleSignIn
+    googleSignIn,
+    facebookSignIn
   };
 
   return (

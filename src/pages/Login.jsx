@@ -48,6 +48,20 @@ h4.05c2.38-2.19 3.75-5.42 3.75-9.12z"
   );
 }
 
+function FbIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      className="fill-current border rounded-full p-1"
+    >
+      <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+    </svg>
+  );
+}
+
 const Login = () => {
   const { login, googleSignIn } = useContext(AuthContext);
   const {
@@ -82,22 +96,22 @@ const Login = () => {
   const handleGoogleLogIn = () => {
     // console.log("clicked");
     googleSignIn()
-    .then(() => {
-      Swal.fire({
-        title: "Success!",
-        text: "You have successfully Logged in!",
-        icon: "success",
-      });
-      navigate("/dashboard");
-    })
-    .catch(() =>
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Invalid Email/Password!",
+      .then(() => {
+        Swal.fire({
+          title: "Success!",
+          text: "You have successfully Logged in!",
+          icon: "success",
+        });
+        navigate("/dashboard");
       })
-    );
-  }
+      .catch(() =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Email/Password!",
+        })
+      );
+  };
 
   // console.log(watch("example")); // watch input value by passing the name of it
 
@@ -140,15 +154,23 @@ const Login = () => {
         </div>
       </form>
       <h2 className="text-center mt-3">OR</h2>
-      <div className="flex bg-white w-64 mx-auto rounded mt-3 justify-center items-center gap-2 border-2 bg-base-100 shadow-xl" 
-
-      >
+      <div className="flex bg-white w-64 mx-auto rounded mt-3 justify-center items-center gap-2 border-2 bg-base-100 shadow-xl">
         <GoogleIcon></GoogleIcon>
         <button
           className="rounded-xl text-xl font-semibold"
           onClick={handleGoogleLogIn}
         >
           Login with Google
+        </button>
+      </div>
+      <h2 className="text-center mt-3">OR</h2>
+      <div className="flex bg-white w-64 mx-auto rounded mt-3 justify-center items-center gap-2 border-2 bg-base-100 shadow-xl">
+        <FbIcon></FbIcon>
+        <button
+          className="rounded-xl text-xl font-semibold"
+          onClick={handleGoogleLogIn}
+        >
+          Login with Facebook
         </button>
       </div>
     </main>
